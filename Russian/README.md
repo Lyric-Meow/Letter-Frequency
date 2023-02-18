@@ -1,8 +1,12 @@
 # Letter frequency meter
-### Измеритель частоты букв
-[eng] The program goes through the file, takes Russian letters and counts their number without case sensitivity. The standard text is several dozen articles from the Russian Wikipedia
+Измеритель частоты букв
+### The program goes through the file, takes Russian letters and counts their number without case sensitivity. The standard text is several dozen articles from the Russian Wikipedia
 
-[ru] Программа проходит по файлу, берет русские буквы и считает их количество без учета регистра. Стандартный текст — это несколько десятков статей из русской Википедии.
+Программа проходит по файлу, берет русские буквы и считает их количество без учета регистра. 
+Стандартный текст — это несколько десятков статей из русской Википедии.
+
+## Calculations based on wikipedia pages
+Расчёты на основе страниц википедии
 | Letter<br>—<br>Буква 	| Frequency<br>——<br>Частотность 	|
 |:--------------------:	|--------------------------------	|
 |           о          	| 10,25                          	|
