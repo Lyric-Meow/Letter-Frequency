@@ -1,7 +1,9 @@
 # Letter frequency meter
 Измеритель частоты букв
+([cтатья на русской Википедии по этой теме](https://ru.wikipedia.org/w/index.php?title=%D0%A7%D0%B0%D1%81%D1%82%D0%BE%D1%82%D0%BD%D0%BE%D1%81%D1%82%D1%8C "Частотность"))
 ### The program goes through the file, takes Russian letters and counts their number without case sensitivity. The standard text is several dozen articles from the Russian Wikipedia
-[Статья на русской Википедии](https://ru.wikipedia.org/w/index.php?title=%D0%A7%D0%B0%D1%81%D1%82%D0%BE%D1%82%D0%BD%D0%BE%D1%81%D1%82%D1%8C "Частотность")
+
+
 Программа проходит по файлу, берет русские буквы и считает их количество без учета регистра. 
 Стандартный текст — это несколько десятков статей из русской Википедии.
 
