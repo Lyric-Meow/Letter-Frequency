@@ -1,63 +1,55 @@
-﻿
-# Copyright © 2023 Erow. All rights reserved.
+﻿# Copyright © 2023 Erow. All rights reserved.
+import collections
+import pathlib
 
-a = ["а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и", "й", "к", "л", "м", "н", "о", "п", "р", "с", "т", "у", "ф", "х", "ц", "ч", "щ", "ш", "ъ", "ы", "ь", "э", "ю", "я"]
+alphabet = list("абвгдеёжзийклмнопрстуфхцчшщъыьэюя")
 
-import json
 
-with open("in_Rus.txt", "r", encoding="utf-8") as my_file:
-    fileIn = my_file.read()
+def write_statistic():
+    file_data = pathlib.Path("in_Rus.txt").read_text(encoding="utf-8").casefold()
+    letters_statistic = {}
 
-en = []
+    for letter in alphabet:
+        letters_statistic[letter] = 0
 
-for i in range(33):
-     en.append([0,a[i]])
+    count = 0
 
-count = 0
+    for text_letter in file_data:
+        if text_letter not in letters_statistic:
+            continue
+        count += 1
+        letters_statistic[text_letter] += 1
 
-for i in fileIn:
-    if i.lower() in a:
-            #print(i, end="")
-            en[a.index(i.lower())][0] += 1
-            count += 1
-#print()
+    count_data = ""
+    percent_data = ""
+    percent_csv_data = ""
 
-fileOut = ""
+    counter = collections.Counter(letters_statistic)
 
-fileOutTwo = ""
+    last = 100
+    for stat_letter, letter_count in counter.most_common():
+        count_data += f"{stat_letter}\t|\t{letter_count}\n"
+        new = round(100 / count * letter_count, 2)
+        if (
+            new < 6 <= last
+            or new < 3 <= last
+            or new < 2 <= last
+            or new < 1 <= last
+            or new < 0.5 <= last
+        ):
+            percent_data += "\n"
+        percent_data += f"{stat_letter}\t|\t{round(100 / count * letter_count, 2)}\n"
 
-fileOutThree = ""
+        percent_csv_data += (
+            f"{stat_letter}\t{str(round(round(100 / count * letter_count, 2) / 100, 4)).replace('.', ',')}\n"
+        )
 
-en.sort(reverse=False, key=lambda x: x[1])
-en.sort(reverse=True, key=lambda x: x[0])
+        last = round(100 / count * letter_count, 2)
 
-for j in range(len(en)):
-    fileOut += (f"{en[j][1] or None}" + "\t|\t" + f"{en[j][0]}\n")
-#print(fileOut)
+    pathlib.Path("counts_Rus.txt").write_text(count_data, encoding="utf-8")
+    pathlib.Path("procent_Rus.txt").write_text(percent_data, encoding="utf-8")
+    pathlib.Path("procentForExcel_Rus.txt").write_text(percent_csv_data, encoding="utf-8")
 
-last = 100
-new = 100
-for j in range(len(en)):
-    new = round(100 / count * en[j][0], 2)
-    if (new < 6 and last >= 6) or (new < 3 and last >= 3) or (new < 2 and last >= 2) or (new < 1 and last >= 1) or (new < 0.5 and last >= 0.5):
-        fileOutTwo += "\n"
-    fileOutTwo += (f"{en[j][1] or None}" + "\t|\t" + f"{round(100 / count * en[j][0], 2)}\n")
 
-    import locale
-    locale.setlocale(locale.LC_ALL, '')
-    fileOutThree += f"{en[j][1] or None}" + "\t" + locale.format("%f", round(100 / count * en[j][0], 2) / 100) + "\n"
-    
-        
-
-    last = round(100 / count * en[j][0], 2)
-    
-
-with open('counts_Rus.txt', 'w', encoding="utf-8") as outfile:
-    outfile.write(fileOut)
-
-with open('procent_Rus.txt', 'w', encoding="utf-8") as outfile:
-    outfile.write(fileOutTwo)
-
-with open('procentForExcel_Rus.txt', 'w', encoding="utf-8") as outfile:
-    outfile.write(fileOutThree)
-
+if __name__ == "__main__":
+    write_statistic()
