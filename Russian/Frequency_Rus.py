@@ -1,4 +1,4 @@
-﻿# Copyright © 2023 Erow. All rights reserved.
+﻿# Copyright © 2023 Milly Crow. All rights reserved.
 import collections
 import pathlib
 
