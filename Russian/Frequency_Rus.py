@@ -27,6 +27,9 @@ def write_statistic():
     counter = collections.Counter(letters_statistic)
 
     last = 100
+
+    count_data += f"Total: \t|\t{count}\n\n"
+
     for stat_letter, letter_count in counter.most_common():
         count_data += f"{stat_letter}\t|\t{letter_count}\n"
         new = round(100 / count * letter_count, 2)
